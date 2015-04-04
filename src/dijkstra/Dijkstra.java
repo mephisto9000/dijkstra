@@ -9,7 +9,7 @@ public class Dijkstra {
 	private class Adjacency
 	{
 		public int[] neighbourIdx;
-		public int[] cost;
+		public int[] cost; // price of edge
 	}
 	
 	int s   = -1;
@@ -52,13 +52,11 @@ public class Dijkstra {
 					}
 				g[i].cost[j] = 1;
 			}
-			
 		}
-	
-		
+
 	}
 	
-	int shortest_path_BFS(Person start, Person finish) {
+	int dijkstra_compute(Person start, Person finish) {
 		
 		for (int i = 0; i < people.size(); i++ )
 		{
@@ -71,15 +69,9 @@ public class Dijkstra {
 			if (finish == people.get(i))
 				end = i;
 		}
-		
-		
-		
+						
 		int n = people.size();
-		
-		
-		
-		
-		
+										
 		for (int i = 0; i < n; i++)
 		{
 			int v = -1;
@@ -99,58 +91,54 @@ public class Dijkstra {
 				int to = g[v].neighbourIdx[j];
 				int w = g[v].cost[j];
 				
-				
 				if (d[to] > (d[v] + w))
 					d[to] = d[v] + w;
 			}
-			
+
 			if (v == end)
 				return d[v];
 		}
-		
-		
-			
+
 		return -1;
 	}
-	
-	
+
+
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		
-Person musa = new Person("musa");
 		
-		Person zhanibek = new Person("zhanibek");
+		Person musa = new Person("mussabek");
 		
-		Person eldar  = new Person("bakibayev");
-		Person alibek = new Person("alibek");
-		Person zhanat = new Person("zhanat");
-		Person monsterbek = new Person("monsterbek");
+		Person igor  = new Person("igor");
+		Person askar = new Person("askar");
+		Person olzhas = new Person("olzhas");
+		Person yermek = new Person("yermek");
+		Person nurlan = new Person("nurlan");
 		
-		musa.addConnection(zhanibek);
-		zhanibek.addConnection(musa);
+		musa.addConnection(igor);
+		askar.addConnection(musa);
+		musa.addConnection(askar);
+		musa.addConnection(yermek);
 		
 		    
-		zhanibek.addConnection(alibek);
-		zhanibek.addConnection(eldar);
-		
-		
-		alibek.addConnection(zhanat);
-		
+		yermek.addConnection(olzhas);
+		olzhas.addConnection(nurlan);
+								
 		List<Person> guys = new ArrayList<Person>();
-		guys.add(zhanibek);
-		guys.add(eldar);
 		guys.add(musa);
-		guys.add(zhanat);
-		guys.add(alibek);
-		guys.add(monsterbek);
+		guys.add(igor);
+		guys.add(askar);
+		guys.add(olzhas);
+		guys.add(nurlan);
+		guys.add(yermek);
+				
 		
-		//BFS bfs = new BFS();
 		Dijkstra algo = new Dijkstra(guys);
-		int val = algo.shortest_path_BFS(musa, zhanat);
-		System.out.println("dijkstra == "+val);
+		int val = algo.dijkstra_compute(yermek, musa);
+		System.out.println("dijkstra length == "+val);
 
 	}
 
